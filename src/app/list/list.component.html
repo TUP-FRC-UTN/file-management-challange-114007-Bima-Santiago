@@ -1,0 +1,58 @@
+<div>
+  <div class="header">
+    <h3>Archivos</h3>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Acciones
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#" (click)="mostrarFormulario()">Nuevo</a></li>
+        <li><a class="dropdown-item" href="#" (click)="borrarArchivos()">Borrar</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Dueños</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(file of files ; track $index) {
+        <tr>
+          <th scope="row">
+            <input type="checkbox" name="" id="" [checked]="seleccionados.includes($index)" (change)="toggleSeleccion($index)">
+          </th>
+          <td>
+            @if(file.type == 1) {
+              <i class="bi bi-file-earmark"></i>
+            }@else {
+              <i class="bi bi-folder"></i>
+            }
+            @if (file.name.length > 10) {
+              <span [title]="file.name"> {{file.name.substring(0, 10) + '...'}}</span>
+            }@else{
+              {{file.name}}
+            }
+
+          </td>
+          <td>{{file.creation | date: 'MMM d, y'}}</td>
+          <td>
+            @for(owner of file.owners ; track $index){
+              @if($index <= 2){
+                <img src="{{owner.avatarUrl}}" alt="{{owner.name}}">
+              }
+            }
+            @if(file.owners.length > 3){
+              <span class="otherOwners">+{{file.owners.length-3}}</span>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

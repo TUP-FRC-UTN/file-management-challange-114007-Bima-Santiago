@@ -1,0 +1,48 @@
+<form #form="ngForm" (ngSubmit)="sendForm(form)" class="row g-3 needs-validation formulario" novalidate>
+  <div class="col-md-4">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input #nombre="ngModel" type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="file.name" required placeholder="Ingrese el nombre" [ngClass]="{'is-invalid': nombre.invalid && nombre.touched, 'is-valid': nombre.valid && nombre.touched}">
+  </div>
+  <div class="col-md-4">
+    <label for="fecha" class="form-label">Fecha:</label>
+    <input #fecha="ngModel" type="date" class="form-control" id="fecha" name="fecha" [(ngModel)]="file.creation" required [ngClass]="{'is-invalid': fecha.invalid && fecha.touched, 'is-valid': fecha.valid && fecha.touched}">
+  </div>
+  <div class="col-md-4">
+    <label for="tipo" class="form-label">Tipo archivo</label>
+    <select class="form-select is-valid"  name="tipo" [(ngModel)]="file.type">
+      @for(item of listaFileTypes ; track $index) {
+        <option [value]="$index">{{item}}</option>
+      }
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label for="carpeta" class="form-label">Carpeta</label>
+    <select class="form-select is-valid" aria-label="Selecciona una carpeta" name="carpeta" [(ngModel)]="file.parentId">
+      <option selected>Open this select menu</option>
+      @for(item of listaArchivos ; track $index) {
+        @if(item.type == 0){
+          <option [value]="$index">{{item.name}}</option>
+        }
+      }
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label for="ownerSelected" class="form-label">Dueños</label>
+    <select class="form-select is-valid" aria-label="Selecciona un dueño" name="ownerSelected" [(ngModel)]="ownerSeleccionado">
+      <option selected>Open this select menu</option>
+      @for(item of listaOwners ; track $index) {
+        <option [value]="item.name">{{item.name}}</option>
+      }
+    </select>
+    <button class="btn btn-primary" type="button" (click)="agregarOwner()"> + </button>
+    @for(item of file.owners ; track $index) {
+      <span>{{item.name}}</span>
+      <button class="btn btn-primary" type="button" (click)="eliminarOwner($index)"> - </button>
+    }
+  </div>
+
+  <div class="col-12 botones">
+    <button type="button" class="btn btn-secondary" (click)="volver()">Volver</button>
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Submit form</button>
+  </div>
+</form>

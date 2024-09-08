@@ -1,1 +1,7 @@
-add code here!!
+<div class="contenedor">
+  @if(!formulario){
+    <app-list (verFormulario)="cambiarFormulario($event)"></app-list>
+  }@else{
+    <app-form [listaArchivos]="files"  (enviarEmit)="cargarFile($event)" (volverEmit)="cambiarFormulario($event)"></app-form>
+  }
+</div>

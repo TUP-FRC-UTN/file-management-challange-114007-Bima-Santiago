@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 20px;
+}
+
+img {
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+}
+
+.otherOwners {
+  background-color: rgb(172, 170, 170);
+  padding: 15px;
+  border-radius: 50px;
+}
